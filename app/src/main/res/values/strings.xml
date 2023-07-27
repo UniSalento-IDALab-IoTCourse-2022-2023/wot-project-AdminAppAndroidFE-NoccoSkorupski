@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">AdminBeaconHospitalMaps</string>
+    <string name="back_button_description">Torna indietro</string>
 </resources>

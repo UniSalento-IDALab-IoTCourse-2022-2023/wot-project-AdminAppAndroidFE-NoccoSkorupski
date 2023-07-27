@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<androidx.appcompat.widget.Toolbar
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/toolbar"
+    android:layout_width="match_parent"
+    android:layout_height="?attr/actionBarSize"
+    android:background="#FFFFFF"
+    android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+    android:elevation="4dp"
+    android:contentInsetStart="0dp"
+    android:contentInsetLeft="0dp"
+    android:contentInsetEnd="0dp"
+    android:contentInsetRight="0dp">
+
+    <!-- Aggiorna il layout per posizionare la freccia a sinistra -->
+    <ImageView
+        android:id="@+id/backArrow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_arrow_back"
+        android:contentDescription="@string/back_button_description"
+        android:padding="14dp"
+        android:layout_gravity="start"
+        android:layout_marginStart="1dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:onClick="onBackPressed" />
+
+</androidx.appcompat.widget.Toolbar>

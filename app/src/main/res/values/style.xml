@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Personalizza i colori dell'applicazione -->
+        <item name="colorPrimary">@color/white</item>
+        <item name="colorPrimaryDark">@color/white</item>
+        <item name="colorAccent">@color/white</item>
+
+        <!-- Imposta l'app bar bianca -->
+        <item name="android:actionBarStyle">@style/AppTheme.ActionBar.White</item>
+    </style>
+
+    <!-- Stile per l'app bar bianca -->
+    <style name="AppTheme.ActionBar.White" parent="Widget.AppCompat.ActionBar">
+        <item name="android:background">@color/white</item>
+    </style>
+
+
+</resources>
