@@ -24,7 +24,7 @@
 
     <Button
         android:id="@+id/beacon"
-        android:onClick="openNewActivity"
+        android:onClick="openNewBeaconActivity"
         android:layout_width="632dp"
         android:layout_height="123dp"
         android:layout_marginTop="472dp"
@@ -37,6 +37,7 @@
 
     <Button
         android:id="@+id/mappa"
+        android:onClick="openMapBeaconActivity"
         android:layout_width="626dp"
         android:layout_height="200dp"
         android:layout_marginTop="788dp"

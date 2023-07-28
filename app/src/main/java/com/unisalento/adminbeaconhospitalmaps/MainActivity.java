@@ -24,8 +24,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
     }
-    public void openNewActivity(View view) {
+    public void openNewBeaconActivity(View view) {
         Intent intent = new Intent(this, NuovoBeaconActivity.class);
+        startActivity(intent);
+    }
+
+    public void openMapBeaconActivity(View view) {
+        Intent intent = new Intent(this, MappaBeaconActivity.class);
         startActivity(intent);
     }
 }

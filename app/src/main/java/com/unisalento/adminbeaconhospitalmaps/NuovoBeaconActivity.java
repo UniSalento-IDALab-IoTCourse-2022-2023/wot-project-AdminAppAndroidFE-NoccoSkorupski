@@ -1,5 +1,6 @@
 package com.unisalento.adminbeaconhospitalmaps;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -50,6 +51,9 @@ public class NuovoBeaconActivity extends AppCompatActivity implements BeaconCons
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nuovobeacon);
+        nomeStanzeEditText = findViewById(R.id.nomeStanze);
+        pianoEditText = findViewById(R.id.piano);
+        repartoEditText = findViewById(R.id.reparto);
 
         ImageView backArrow = findViewById(R.id.backArrow);
         backArrow.setOnClickListener(new View.OnClickListener() {
@@ -157,42 +161,55 @@ public class NuovoBeaconActivity extends AppCompatActivity implements BeaconCons
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        new SubmitFormAsyncTask().execute(jsonObject.toString());
 
-        // Esegui la chiamata API POST con OkHttp
-        String url = "http://localhost:8081/api/amministratore/nuovoBeacon";
-        OkHttpClient client = new OkHttpClient();
-        MediaType JSON = MediaType.parse("application/json; charset=utf-8");
-        RequestBody requestBody = RequestBody.create(JSON, jsonObject.toString());
-        Request request = new Request.Builder()
-                .url(url)
-                .post(requestBody)
-                .build();
-
-        try {
-            Response response = client.newCall(request).execute();
-            if (response.isSuccessful()) {
-                // La richiesta è andata a buon fine
-                String responseString = response.body().string();
-                Log.d("API_RESPONSE", responseString);
-                JSONObject jsonResponse = new JSONObject(responseString);
-                boolean esito = jsonResponse.getBoolean("esito");
-                String messaggio = jsonResponse.getString("messaggio");
-                if(esito)
-                    Toast.makeText(NuovoBeaconActivity.this, messaggio, Toast.LENGTH_LONG).show();
-                else
-                    Toast.makeText(NuovoBeaconActivity.this, "Riprova. Qualcosa è andato storto...", Toast.LENGTH_LONG).show();
-            } else {
-                // La richiesta ha restituito un errore
-                Log.e("API_ERROR", "Errore nella chiamata API");
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
     }
 
+    private class SubmitFormAsyncTask extends AsyncTask<String, Void, String> {
 
+        @Override
+        protected String doInBackground(String... params) {
+            String url = "http://192.168.1.140:8081/api/amministratore/nuovoBeacon";
+            OkHttpClient client = new OkHttpClient();
+            MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+            RequestBody requestBody = RequestBody.create(JSON, params[0]);
+            Request request = new Request.Builder()
+                    .url(url)
+                    .post(requestBody)
+                    .build();
 
+            try {
+                Response response = client.newCall(request).execute();
+                if (response.isSuccessful()) {
+                    // La richiesta è andata a buon fine
+                    return response.body().string();
+                } else {
+                    // La richiesta ha restituito un errore
+                    return null;
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+                return null;
+            }
+        }
+
+        @Override
+        protected void onPostExecute(String responseString) {
+            if (responseString != null) {
+                try {
+                    JSONObject jsonResponse = new JSONObject(responseString);
+                    String messaggio = jsonResponse.getString("messaggio");
+                    Toast.makeText(NuovoBeaconActivity.this, messaggio, Toast.LENGTH_LONG).show();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                // Gestisci il caso in cui la chiamata di rete ha restituito un errore
+                Log.e("API_ERROR", "Errore nella chiamata API");
+            }
+        }
+    }
 }
+
+
 
