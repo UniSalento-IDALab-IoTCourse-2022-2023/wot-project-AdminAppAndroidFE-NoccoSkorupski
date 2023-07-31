@@ -1,7 +1,12 @@
 package com.unisalento.adminbeaconhospitalmaps;
 
+import android.content.Intent;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -22,6 +27,7 @@ import okhttp3.Response;
 public class MappaBeaconActivity extends AppCompatActivity {
 
     private TableLayout tableLayout;
+    final String CODICE_OSPEDALE = "01";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +38,13 @@ public class MappaBeaconActivity extends AppCompatActivity {
 
         // Effettua la chiamata API e riempi la tabella con i dati ricevuti
         new FetchDataTask().execute();
+        ImageView backArrow = findViewById(R.id.backArrow);
+        backArrow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed(); // Chiama onBackPressed per tornare all'attività precedente
+            }
+        });
     }
 
     private class FetchDataTask extends AsyncTask<Void, Void, String> {
@@ -41,7 +54,7 @@ public class MappaBeaconActivity extends AppCompatActivity {
             // Effettua la chiamata API GET utilizzando OkHttpClient
             OkHttpClient client = new OkHttpClient();
             Request request = new Request.Builder()
-                    .url("https://api.example.com/data") // Sostituisci con l'URL della tua API
+                    .url("http://192.168.1.140:8081/api/amministratore/allBeacon/"+CODICE_OSPEDALE) // Sostituisci con l'URL della tua API
                     .build();
 
             try {
@@ -87,6 +100,29 @@ public class MappaBeaconActivity extends AppCompatActivity {
                         col3TextView.setText(col3Value);
                         col3TextView.setPadding(8, 8, 8, 8);
                         tableRow.addView(col3TextView);
+
+                        TextView col4TextView = new TextView(MappaBeaconActivity.this);
+                        col4TextView.setPadding(8, 8, 8, 8);
+                        tableRow.addView(col4TextView);
+
+                        // Aggiungi un pulsante nella colonna
+                        Button button = new Button(MappaBeaconActivity.this);
+                        button.setText("Mappa");
+                        String uuidValue = col1Value;
+                        button.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                Intent intent = new Intent(MappaBeaconActivity.this, NuovaMappaturaActivity.class);
+                                intent.putExtra("UUID", uuidValue);
+                                startActivity(intent);
+                            }
+                        });
+                        tableRow.addView(button);
+
+                        View separator = new View(MappaBeaconActivity.this);
+                        separator.setBackgroundColor(Color.BLACK);
+                        separator.setLayoutParams(new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, 1));
+                        tableLayout.addView(separator);
 
                         tableLayout.addView(tableRow);
                     }

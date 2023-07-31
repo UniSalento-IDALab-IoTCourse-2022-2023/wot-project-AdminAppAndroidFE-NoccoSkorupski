@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="788dp"
+        android:layout_height="98dp"
+        android:layout_marginStart="149dp"
+        android:layout_marginEnd="137dp"
+        android:fontFamily="sans-serif-medium"
+        android:textAlignment="viewStart"
+        android:textAllCaps="false"
+        android:textColor="#B30000"
+        android:textSize="26sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="NotSibling,UnknownId" />
+
+    <TextView
+        android:id="@+id/errorTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:textColor="@android:color/holo_red_dark"
+        android:visibility="gone"
+        android:text="Se hai inserito l'uuid di un beacon vicino, allora devi fornire anche la sua distanza"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonSubmit" />
+
+
+    <Spinner
+        android:id="@+id/uuidFronte"
+        android:layout_width="260dp"
+        android:layout_height="27dp"
+        android:layout_marginStart="312dp"
+        android:layout_marginTop="124dp"
+        android:hint="▲ UUID FRONTE"
+        android:textColorHint="@color/black"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/distanzaFronte"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:hint="▲ DISTANZA FRONTE"
+        android:textColorHint="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.509"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/uuidFronte" />
+
+    <Spinner
+        android:id="@+id/uuidSinistra"
+        android:layout_width="250dp"
+        android:layout_height="32dp"
+        android:layout_marginStart="4dp"
+        android:hint="◀ UUID SINISTRA"
+        android:textColorHint="@color/black"
+        app:layout_constraintBottom_toTopOf="@id/uuidRetro"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/uuidFronte" />
+
+    <EditText
+        android:id="@+id/distanzaSinistra"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:hint="◀ DISTANZA SINISTRA"
+        android:textColorHint="@color/black"
+        app:layout_constraintBottom_toTopOf="@id/distanzaRetro"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/uuidSinistra"
+        app:layout_constraintVertical_bias="0.036" />
+
+
+    <ImageView
+        android:id="@+id/beaconrosso"
+        android:layout_width="276dp"
+        android:layout_height="308dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:src="@drawable/beaconrosso"
+        app:layout_constraintBottom_toTopOf="@id/uuidRetro"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/uuidFronte"
+        app:layout_constraintVertical_bias="0.825" />
+
+
+    <Spinner
+        android:id="@+id/uuidDestra"
+        android:layout_width="229dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="20dp"
+        android:hint="▶ UUID DESTRA"
+        android:textColorHint="@color/black"
+        app:layout_constraintBottom_toTopOf="@id/uuidRetro"
+        app:layout_constraintStart_toEndOf="@id/beaconrosso"
+        app:layout_constraintTop_toBottomOf="@id/uuidFronte"
+        app:layout_constraintVertical_bias="0.458" />
+
+    <EditText
+        android:id="@+id/distanzaDestra"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="296dp"
+        android:layout_marginTop="20dp"
+        android:hint="▶ DISTANZA DESTRA"
+        android:textColorHint="@color/black"
+        app:layout_constraintStart_toStartOf="@+id/beaconrosso"
+        app:layout_constraintTop_toBottomOf="@+id/uuidDestra" />
+
+
+    <EditText
+        android:id="@+id/distanzaRetro"
+        android:layout_width="198dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="300dp"
+        android:hint="▼ DISTANZA RETRO"
+        android:textColorHint="@color/black"
+        app:layout_constraintEnd_toEndOf="@+id/beaconrosso"
+        app:layout_constraintStart_toStartOf="@+id/beaconrosso"
+        app:layout_constraintTop_toBottomOf="@+id/distanzaDestra" />
+
+    <Spinner
+        android:id="@+id/uuidRetro"
+        android:layout_width="295dp"
+        android:layout_height="44dp"
+        android:hint="▼ UUID RETRO"
+        android:textColorHint="@color/black"
+        app:layout_constraintBottom_toTopOf="@+id/buttonSubmit"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.596"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/distanzaDestra"
+        app:layout_constraintVertical_bias="0.485" />
+
+    <Button
+        android:id="@+id/buttonSubmit"
+        android:layout_width="494dp"
+        android:layout_height="61dp"
+        android:background="#880000"
+        android:onClick="submitForm"
+        android:text="CONFERMA MAPPA"
+        app:backgroundTint="#8E0000"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/distanzaRetro" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

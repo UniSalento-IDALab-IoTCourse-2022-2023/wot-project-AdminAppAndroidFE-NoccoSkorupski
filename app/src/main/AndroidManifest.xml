@@ -32,6 +32,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".NuovoBeaconActivity" />
+        <activity android:name=".MappaBeaconActivity" />
+        <activity android:name=".NuovaMappaturaActivity" />
+
         <receiver
             android:name="org.altbeacon.beacon.startup.StartupBroadcastReceiver"
             android:enabled="true"

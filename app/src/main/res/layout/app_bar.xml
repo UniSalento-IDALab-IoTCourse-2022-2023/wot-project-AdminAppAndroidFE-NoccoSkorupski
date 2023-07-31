@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-
 <androidx.appcompat.widget.Toolbar
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/toolbar"
@@ -14,18 +12,31 @@
     android:contentInsetEnd="0dp"
     android:contentInsetRight="0dp">
 
-    <!-- Aggiorna il layout per posizionare la freccia a sinistra -->
-    <ImageView
-        android:id="@+id/backArrow"
+    <!-- LinearLayout per posizionare l'immagine a sinistra -->
+    <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_arrow_back"
-        android:contentDescription="@string/back_button_description"
-        android:padding="14dp"
-        android:layout_gravity="start"
-        android:layout_marginStart="1dp"
-        android:clickable="true"
-        android:focusable="true"
-        android:onClick="onBackPressed" />
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <!-- Immagine a sinistra -->
+        <ImageView
+            android:id="@+id/backArrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_arrow_back"
+            android:contentDescription="@string/back_button_description"
+            android:padding="14dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:onClick="onBackPressed" />
+
+        <!-- Spazio tra l'immagine e il titolo -->
+        <Space
+            android:layout_width="16dp"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
 
 </androidx.appcompat.widget.Toolbar>
+

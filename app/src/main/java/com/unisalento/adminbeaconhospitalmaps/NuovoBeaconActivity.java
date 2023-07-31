@@ -9,11 +9,14 @@ import android.Manifest;
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+
+import android.os.Handler;
 import android.os.RemoteException;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 import org.altbeacon.beacon.Beacon;
 import org.altbeacon.beacon.BeaconConsumer;
@@ -45,7 +48,9 @@ public class NuovoBeaconActivity extends AppCompatActivity implements BeaconCons
     private EditText repartoEditText;
     private String nearestBeaconUuid;
     final String CODICE_OSPEDALE = "01";
-
+    private boolean isScanningPaused = false;
+    private Handler handler = new Handler();
+    private static final long TOAST_INTERVAL = 6000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,7 +75,22 @@ public class NuovoBeaconActivity extends AppCompatActivity implements BeaconCons
         beaconManager = BeaconManager.getInstanceForApplication(this);
         beaconManager.getBeaconParsers().add(new BeaconParser().setBeaconLayout("m:2-3=0215,i:4-19,i:20-21,i:22-23,p:24-24"));
         beaconManager.bind(this);
+        startToastUpdate();
     }
+    private void startToastUpdate() {
+        handler.postDelayed(toastRunnable, TOAST_INTERVAL);
+    }
+    private Runnable toastRunnable = new Runnable() {
+        @Override
+        public void run() {
+            // Mostra il Toast con l'UUID del beacon più vicino
+            if (nearestBeaconUuid != null) {
+                Toast.makeText(NuovoBeaconActivity.this, "Beacon più vicino UUID: " + nearestBeaconUuid, Toast.LENGTH_LONG).show();
+            }
+            // Ripeti il processo ogni 2 secondi
+            handler.postDelayed(this, TOAST_INTERVAL);
+        }
+    };
 
     private void checkPermissions() {
         int permissionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION);
@@ -100,25 +120,37 @@ public class NuovoBeaconActivity extends AppCompatActivity implements BeaconCons
         beaconManager.setRangeNotifier(new RangeNotifier() {
             @Override
             public void didRangeBeaconsInRegion(Collection<Beacon> beaconsInRange, Region region) {
-                if (!beaconsInRange.isEmpty()) {
-                    beacons.clear(); // Rimuovi i beacon precedenti dalla lista
-                    beacons.addAll(beaconsInRange); // Aggiungi i nuovi beacon rilevati alla lista
+                if (!isScanningPaused) {
+                    if (!beaconsInRange.isEmpty()) {
+                        beacons.clear(); // Rimuovi i beacon precedenti dalla lista
+                        beacons.addAll(beaconsInRange); // Aggiungi i nuovi beacon rilevati alla lista
 
-                    // Assicurati che ci siano elementi nella lista 'beacons'
-                    if (!beacons.isEmpty()) {
-                        Beacon nearestBeacon = beacons.get(0); // Ottieni il primo elemento della lista
-                        nearestBeaconUuid = nearestBeacon.getId1().toString();
-                        // Ora hai l'UUID del beacon più vicino
-                        runOnUiThread(() -> {
-                            Toast.makeText(NuovoBeaconActivity.this, "Beacon più vicino UUID: " + nearestBeaconUuid, Toast.LENGTH_LONG).show();
-                            Log.i("BeaconData", "UUID del beacon: " + nearestBeaconUuid);
-                        });
+                        // Assicurati che ci siano elementi nella lista 'beacons'
+                        if (!beacons.isEmpty()) {
+                            Beacon nearestBeacon = beacons.get(0); // Ottieni il primo elemento della lista
+                            nearestBeaconUuid = nearestBeacon.getId1().toString();
+                            // Ora hai l'UUID del beacon più vicino
+                            runOnUiThread(() -> {
+                                Toast.makeText(NuovoBeaconActivity.this, "Beacon più vicino UUID: " + nearestBeaconUuid, Toast.LENGTH_LONG).show();
+                                Log.i("BeaconData", "UUID del beacon: " + nearestBeaconUuid);
+                            });
+                        }
+                    } else {
+                        Log.i("Beacon Data", "Nessun beacon trovato.");
+                        nearestBeaconUuid = null;
                     }
-                } else {
-                    Log.i("Beacon Data", "Nessun beacon trovato.");
+                    isScanningPaused = true;
+                    new android.os.Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            isScanningPaused = false;
+                        }
+                    }, 10000);
                 }
             }
         });
+        beaconManager.setForegroundBetweenScanPeriod(5000); // Rallenta la scansione ogni 5 secondi
+        beaconManager.setForegroundScanPeriod(5000);
 
         try {
             // Avvia la scansione dei beacon
@@ -141,6 +173,7 @@ public class NuovoBeaconActivity extends AppCompatActivity implements BeaconCons
         super.onDestroy();
         // Assicurati di liberare le risorse quando l'Activity viene distrutta
         beaconManager.unbind(this);
+        handler.removeCallbacks(toastRunnable);
     }
 
 
@@ -149,6 +182,17 @@ public class NuovoBeaconActivity extends AppCompatActivity implements BeaconCons
         String nomeStanze = nomeStanzeEditText.getText().toString();
         String piano = pianoEditText.getText().toString();
         String reparto = repartoEditText.getText().toString();
+
+        if (nomeStanze.isEmpty() || piano.isEmpty() || reparto.isEmpty()) {
+            // Mostra il messaggio di errore
+            TextView errorTextView = findViewById(R.id.errorTextView);
+            errorTextView.setVisibility(View.VISIBLE);
+            return; // Esci dal metodo senza inviare la richiesta se un campo è vuoto
+        }
+
+        // Nascondi il messaggio di errore se tutti i campi sono riempiti correttamente
+        TextView errorTextView = findViewById(R.id.errorTextView);
+        errorTextView.setVisibility(View.GONE);
 
         // Crea un JSON con i dati del form
         JSONObject jsonObject = new JSONObject();
@@ -199,7 +243,8 @@ public class NuovoBeaconActivity extends AppCompatActivity implements BeaconCons
                 try {
                     JSONObject jsonResponse = new JSONObject(responseString);
                     String messaggio = jsonResponse.getString("messaggio");
-                    Toast.makeText(NuovoBeaconActivity.this, messaggio, Toast.LENGTH_LONG).show();
+                    showLongDurationToast(messaggio);
+                    onBackPressed();
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -208,6 +253,11 @@ public class NuovoBeaconActivity extends AppCompatActivity implements BeaconCons
                 Log.e("API_ERROR", "Errore nella chiamata API");
             }
         }
+    }
+    private void showLongDurationToast(String message) {
+        Toast toast = Toast.makeText(NuovoBeaconActivity.this, message, Toast.LENGTH_LONG);
+        toast.setDuration(Toast.LENGTH_LONG * 5); // Moltiplica per 2 per fare durare il Toast più a lungo
+        toast.show();
     }
 }
 
