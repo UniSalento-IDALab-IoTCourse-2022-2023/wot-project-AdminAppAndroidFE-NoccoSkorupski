@@ -33,4 +33,9 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, MappaBeaconActivity.class);
         startActivity(intent);
     }
+
+    public void openNuovaPosizioneActivity(View view) {
+        Intent intent = new Intent(this,NuovaPosizioneActivity.class);
+        startActivity(intent);
+    }
 }

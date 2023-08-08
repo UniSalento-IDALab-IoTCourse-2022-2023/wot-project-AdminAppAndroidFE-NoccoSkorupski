@@ -139,45 +139,52 @@ public class NuovaMappaturaActivity extends AppCompatActivity {
         JSONArray viciniArray = new JSONArray();
 
         // Costruire gli oggetti JSON per ciascun elemento dell'array "vicini"
-        JSONObject vicino1 = new JSONObject();
-        try {
-            vicino1.put("direzione", "FRONTE");
-            vicino1.put("beaconUUID", uuidFronteValue);
-            vicino1.put("distanza", distanzaFronteValue);
-        } catch (JSONException e) {
-            e.printStackTrace();
+        if(!uuidFronteValue.equalsIgnoreCase("none")) {
+            JSONObject vicino1 = new JSONObject();
+            try {
+                vicino1.put("direzione", "FRONTE");
+                vicino1.put("beaconUUID", uuidFronteValue);
+                vicino1.put("distanza", distanzaFronteValue);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            viciniArray.put(vicino1);
         }
-        viciniArray.put(vicino1);
+        if(!uuidDestraValue.equalsIgnoreCase("none")) {
+            JSONObject vicino2 = new JSONObject();
+            try {
+                vicino2.put("direzione", "DESTRA");
+                vicino2.put("beaconUUID", uuidDestraValue);
+                vicino2.put("distanza", distanzaDestraValue);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            viciniArray.put(vicino2);
+        }
 
-        JSONObject vicino2 = new JSONObject();
-        try {
-            vicino2.put("direzione", "DESTRA");
-            vicino2.put("beaconUUID", uuidDestraValue);
-            vicino2.put("distanza", distanzaDestraValue);
-        } catch (JSONException e) {
-            e.printStackTrace();
+        if(!uuidSinistraValue.equalsIgnoreCase("none")) {
+            JSONObject vicino3 = new JSONObject();
+            try {
+                vicino3.put("direzione", "SINISTRA");
+                vicino3.put("beaconUUID", uuidSinistraValue);
+                vicino3.put("distanza", distanzaSinistraValue);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            viciniArray.put(vicino3);
         }
-        viciniArray.put(vicino2);
 
-        JSONObject vicino3 = new JSONObject();
-        try {
-            vicino3.put("direzione", "SINISTRA");
-            vicino3.put("beaconUUID", uuidSinistraValue);
-            vicino3.put("distanza", distanzaSinistraValue);
-        } catch (JSONException e) {
-            e.printStackTrace();
+        if(!uuidRetroValue.equalsIgnoreCase("none")) {
+            JSONObject vicino4 = new JSONObject();
+            try {
+                vicino4.put("direzione", "RETRO");
+                vicino4.put("beaconUUID", uuidRetroValue);
+                vicino4.put("distanza", distanzaRetroValue);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            viciniArray.put(vicino4);
         }
-        viciniArray.put(vicino3);
-
-        JSONObject vicino4 = new JSONObject();
-        try {
-            vicino4.put("direzione", "RETRO");
-            vicino4.put("beaconUUID", uuidRetroValue);
-            vicino4.put("distanza", distanzaRetroValue);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        viciniArray.put(vicino4);
 
         // Creare l'oggetto JSON principale
         JSONObject mainObject = new JSONObject();

@@ -1,15 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<HorizontalScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+<androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/textView2"
-        android:layout_width="788dp"
-        android:layout_height="98dp"
+        android:layout_width="775dp"
+        android:layout_height="81dp"
         android:layout_marginStart="149dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="137dp"
         android:fontFamily="sans-serif-medium"
         android:textAlignment="viewStart"
@@ -18,7 +23,7 @@
         android:textSize="26sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="NotSibling,UnknownId" />
@@ -38,10 +43,10 @@
 
     <Spinner
         android:id="@+id/uuidFronte"
-        android:layout_width="260dp"
-        android:layout_height="27dp"
-        android:layout_marginStart="312dp"
-        android:layout_marginTop="124dp"
+        android:layout_width="258dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="492dp"
+        android:layout_marginTop="176dp"
         android:hint="▲ UUID FRONTE"
         android:textColorHint="@color/black"
         app:layout_constraintStart_toStartOf="parent"
@@ -55,38 +60,38 @@
         android:hint="▲ DISTANZA FRONTE"
         android:textColorHint="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.509"
+        app:layout_constraintHorizontal_bias="0.563"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/uuidFronte" />
 
     <Spinner
         android:id="@+id/uuidSinistra"
-        android:layout_width="250dp"
-        android:layout_height="32dp"
-        android:layout_marginStart="4dp"
+        android:layout_width="158dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="212dp"
         android:hint="◀ UUID SINISTRA"
         android:textColorHint="@color/black"
         app:layout_constraintBottom_toTopOf="@id/uuidRetro"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/uuidFronte" />
+        app:layout_constraintTop_toBottomOf="@id/uuidFronte"
+        app:layout_constraintVertical_bias="0.463" />
 
     <EditText
         android:id="@+id/distanzaSinistra"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
+        android:layout_width="279dp"
+        android:layout_height="63dp"
+        android:layout_marginStart="212dp"
         android:hint="◀ DISTANZA SINISTRA"
         android:textColorHint="@color/black"
         app:layout_constraintBottom_toTopOf="@id/distanzaRetro"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/uuidSinistra"
-        app:layout_constraintVertical_bias="0.036" />
-
+        app:layout_constraintVertical_bias="0.0" />
 
     <ImageView
         android:id="@+id/beaconrosso"
-        android:layout_width="276dp"
-        android:layout_height="308dp"
+        android:layout_width="176dp"
+        android:layout_height="162dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="5dp"
         android:layout_marginEnd="16dp"
@@ -94,9 +99,10 @@
         android:src="@drawable/beaconrosso"
         app:layout_constraintBottom_toTopOf="@id/uuidRetro"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.583"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/uuidFronte"
-        app:layout_constraintVertical_bias="0.825" />
+        app:layout_constraintVertical_bias="0.672" />
 
 
     <Spinner
@@ -109,28 +115,28 @@
         app:layout_constraintBottom_toTopOf="@id/uuidRetro"
         app:layout_constraintStart_toEndOf="@id/beaconrosso"
         app:layout_constraintTop_toBottomOf="@id/uuidFronte"
-        app:layout_constraintVertical_bias="0.458" />
+        app:layout_constraintVertical_bias="0.487" />
 
     <EditText
         android:id="@+id/distanzaDestra"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="296dp"
-        android:layout_marginTop="20dp"
+        android:layout_width="263dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="196dp"
+        android:layout_marginTop="24dp"
         android:hint="▶ DISTANZA DESTRA"
         android:textColorHint="@color/black"
         app:layout_constraintStart_toStartOf="@+id/beaconrosso"
         app:layout_constraintTop_toBottomOf="@+id/uuidDestra" />
 
-
     <EditText
         android:id="@+id/distanzaRetro"
         android:layout_width="198dp"
         android:layout_height="48dp"
-        android:layout_marginTop="300dp"
+        android:layout_marginTop="96dp"
         android:hint="▼ DISTANZA RETRO"
         android:textColorHint="@color/black"
         app:layout_constraintEnd_toEndOf="@+id/beaconrosso"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/beaconrosso"
         app:layout_constraintTop_toBottomOf="@+id/distanzaDestra" />
 
@@ -142,15 +148,15 @@
         android:textColorHint="@color/black"
         app:layout_constraintBottom_toTopOf="@+id/buttonSubmit"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.596"
+        app:layout_constraintHorizontal_bias="0.65"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/distanzaDestra"
-        app:layout_constraintVertical_bias="0.485" />
+        app:layout_constraintVertical_bias="0.205" />
 
     <Button
         android:id="@+id/buttonSubmit"
-        android:layout_width="494dp"
-        android:layout_height="61dp"
+        android:layout_width="394dp"
+        android:layout_height="63dp"
         android:background="#880000"
         android:onClick="submitForm"
         android:text="CONFERMA MAPPA"
@@ -162,3 +168,4 @@
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+</HorizontalScrollView>

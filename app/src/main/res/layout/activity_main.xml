@@ -4,17 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:statusBarColor="@android:color/white">
+
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="306dp"
+        android:layout_height="169dp"
         android:fontFamily="sans-serif-smallcaps"
         android:text="Benvenuto Amministratore!"
         android:textAlignment="center"
         android:textAllCaps="false"
         android:textColor="#CF2013"
-        android:textSize="60sp"
+        android:textSize="34sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -24,26 +26,40 @@
 
     <Button
         android:id="@+id/beacon"
+        android:layout_width="296dp"
+        android:layout_height="111dp"
+        android:layout_marginTop="256dp"
+        android:backgroundTint="@color/red"
         android:onClick="openNewBeaconActivity"
-        android:layout_width="632dp"
-        android:layout_height="123dp"
-        android:layout_marginTop="472dp"
-        android:background="#CC0000"
         android:text="Nuovo beacon"
-        android:textSize="60sp"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.592"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/mappa"
+        android:layout_width="297dp"
+        android:layout_height="119dp"
+        android:layout_marginTop="384dp"
+        android:backgroundTint="@color/red"
         android:onClick="openMapBeaconActivity"
-        android:layout_width="626dp"
-        android:layout_height="200dp"
-        android:layout_marginTop="788dp"
-        android:background="#CC0000"
         android:text="Mappa i beacon"
-        android:textSize="60sp"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/posizione"
+        android:layout_width="297dp"
+        android:layout_height="119dp"
+        android:layout_marginTop="516dp"
+        android:backgroundTint="@color/red"
+        android:onClick="openNuovaPosizioneActivity"
+        android:text="Invia la posizione"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
