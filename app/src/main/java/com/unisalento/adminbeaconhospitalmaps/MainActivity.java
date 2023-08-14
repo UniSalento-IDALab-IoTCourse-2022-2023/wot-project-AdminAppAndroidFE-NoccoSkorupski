@@ -29,8 +29,8 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void openMapBeaconActivity(View view) {
-        Intent intent = new Intent(this, MappaBeaconActivity.class);
+    public void openSceltaMapBeaconActivity(View view) {
+        Intent intent = new Intent(this, SceltaMappaBeaconActivity.class);
         startActivity(intent);
     }
 
