@@ -97,7 +97,7 @@ public class NuovaPosizioneActivity extends AppCompatActivity implements SensorE
 
         @Override
         protected String doInBackground(String... params) {
-            String url = "http://192.168.1.140:8081/api/amministratore/nuoveCoordinate";
+            String url = "http://ec2-52-22-228-41.compute-1.amazonaws.com:8081/api/amministratore/nuoveCoordinate";
             OkHttpClient client = new OkHttpClient();
             MediaType JSON = MediaType.parse("application/json; charset=utf-8");
             RequestBody requestBody = RequestBody.create(JSON, params[0]);

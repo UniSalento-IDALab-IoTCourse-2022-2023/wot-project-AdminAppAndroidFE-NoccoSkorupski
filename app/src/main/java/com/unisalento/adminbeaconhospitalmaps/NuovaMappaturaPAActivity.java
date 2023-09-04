@@ -60,7 +60,7 @@ public class NuovaMappaturaPAActivity extends AppCompatActivity {
         // Simili per gli altri AutoCompleteTextView
 
         // Effettua la chiamata API e popola le opzioni nel menu a tendina
-        fetchOptionsData("http://192.168.1.140:8081/api/amministratore/allBeacon/" + CODICE_OSPEDALE+"/"+uuidValue);
+        fetchOptionsData("http://ec2-52-22-228-41.compute-1.amazonaws.com:8081/api/amministratore/allBeacon/" + CODICE_OSPEDALE+"/"+uuidValue);
     }
 
     // Metodo per effettuare la chiamata API e popolare le opzioni
@@ -131,7 +131,7 @@ public class NuovaMappaturaPAActivity extends AppCompatActivity {
         OkHttpClient client = new OkHttpClient();
 
         // Sostituisci l'URL con l'endpoint corretto per la tua API POST
-        String url = "http://192.168.1.140:8081/api/amministratore/beaconMappatoDisabili";
+        String url = "http://ec2-52-22-228-41.compute-1.amazonaws.com:8081/api/amministratore/beaconMappatoDisabili";
 
 
 

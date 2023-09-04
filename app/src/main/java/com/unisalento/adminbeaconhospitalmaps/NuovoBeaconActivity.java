@@ -213,7 +213,7 @@ public class NuovoBeaconActivity extends AppCompatActivity implements BeaconCons
 
         @Override
         protected String doInBackground(String... params) {
-            String url = "http://192.168.1.140:8081/api/amministratore/nuovoBeacon";
+            String url = "http://ec2-52-22-228-41.compute-1.amazonaws.com:8081/api/amministratore/nuovoBeacon";
             OkHttpClient client = new OkHttpClient();
             MediaType JSON = MediaType.parse("application/json; charset=utf-8");
             RequestBody requestBody = RequestBody.create(JSON, params[0]);

@@ -54,7 +54,7 @@ public class MappaBeaconActivity extends AppCompatActivity {
             // Effettua la chiamata API GET utilizzando OkHttpClient
             OkHttpClient client = new OkHttpClient();
             Request request = new Request.Builder()
-                    .url("http://192.168.1.140:8081/api/amministratore/allBeacon/"+CODICE_OSPEDALE) // Sostituisci con l'URL della tua API
+                    .url("http://ec2-52-22-228-41.compute-1.amazonaws.com:8081/api/amministratore/allBeacon/"+CODICE_OSPEDALE) // Sostituisci con l'URL della tua API
                     .build();
 
             try {
